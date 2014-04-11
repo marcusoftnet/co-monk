@@ -1,4 +1,3 @@
-
 # co-monk
 
   MongoDB with generator goodness.
@@ -55,6 +54,22 @@ res.name.should.equal('Tobi');
 
 var res = yield users.find({ species: 'ferret' });
 res.should.have.length(3);
+```
+
+# I get a "SyntaxError: Unexpected identifier" when I run that
+This code needs to be wrapped in a generator function before you can execute it. You can do that using the co-library like this:
+```js
+var co = require('co');
+// all the other requires from the examples above
+
+// Now wrap the code in a generator that you send to co
+co(function *(){
+	yield users.remove({});
+	// the rest of the code from above
+	... 
+	// finally end generator function
+	// and execute co
+})();
 ```
 
 # License
