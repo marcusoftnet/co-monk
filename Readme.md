@@ -21,6 +21,13 @@ var db = monk('localhost/test');
 var users = wrap(db.get('users'));
 ```
 
+  You can also use the shortcut to create them in one go:
+
+```js
+var wrap = require('co-monk');
+var users = wrap.getCollection('localhost/test', 'users');
+```
+
 ## Example
 
   Simple example:
@@ -56,6 +63,21 @@ res.name.should.equal('Tobi');
 var res = yield users.find({ species: 'ferret' });
 res.should.have.length(3);
 ```
+
+
+  Note; in order to run these examples you need someone to handle the yields, someone like [co](https://github.com/visionmedia/co) or [KoaJs](http://koajs.com/).
+  A full, simple example looks like this
+
+```js
+var co = require('co');
+var users = require('co-monk')
+	.getCollection('localhost/test', 'users');
+
+co(function *(){
+	yield users.insert({ name: 'Tobi', species: 'ferret' })
+	console.log("BAM! User inserted - 2 ");
+})();
+  ```
 
 # License
 
