@@ -4,6 +4,7 @@
  */
 
 var thunkify = require('thunkify');
+var helpers = require('./lib/helpers.js');
 
 /**
  * Methods to wrap.
@@ -37,3 +38,23 @@ module.exports = function(col){
 
   return col;
 };
+
+/**
+ * Creates generator friendly collection
+ *
+ * @param {connectionString} connection string to mongodb
+ * @param {collectionName} the name of the collection to return
+ * @return {Collection}
+ * @api public
+ */
+
+module.exports.getCollection = helpers.getCoMonkCollection;
+
+/**
+ * Creates an monk database from the connectionstring
+ *
+ * @param {connectionString} connection string to mongodb
+ * @return {database} a monk database object
+ * @api public
+ */
+module.exports.getMonkDb = helpers.getDatabase;
